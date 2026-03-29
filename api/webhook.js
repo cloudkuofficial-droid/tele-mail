@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
             
             // PERUBAHAN DI SINI: Naikkan menjadi 8 detik (8000 ms)
             // Agar bot punya cukup waktu untuk menarik data domain dari EduMail
-            await new Promise(resolve => setTimeout(resolve, 8000));
+            await new Promise(resolve => setTimeout(resolve, 10000));
         }
         
         res.status(200).send('OK');
