@@ -18,9 +18,15 @@ setBotInstance(bot);
 module.exports = async (req, res) => {
     try {
         await connectDb(); // Sambungkan ke MongoDB
+        
         if (req.body) {
-            await bot.processUpdate(req.body); // Serahkan pesan ke index.js
+            bot.processUpdate(req.body); // Serahkan pesan ke index.js
+            
+            // TRIK VERCEL: Tahan serverless agar tidak langsung mati selama 3 detik
+            // Ini memberi waktu bagi bot.on() untuk selesai mengirim pesan ke Telegram
+            await new Promise(resolve => setTimeout(resolve, 3000));
         }
+        
         res.status(200).send('OK');
     } catch (error) {
         console.error("Webhook Error:", error);
